@@ -13,7 +13,11 @@ module MundaneSearch
     #   optional: true,
     #   validate_with: ->(val) { val.kind_of?(Time) }, # or /\A\S{4,}\Z/
     #   validations: [],
-    #   error_on_validate: false
+    #   error_on_validate: false,
+    #   issolate_with: :name_of_issolation_filter
+    #   argument_issolation: :which_param,
+    #                        [:params_a, :params_b]
+    #                        ->(params) { params.inspect }
     # }
     def self.valid_options
       %w(target search_type search_method optional validate_with validations
@@ -27,7 +31,9 @@ module MundaneSearch
       true
     end
 
-    attr_accessor :options
+    attr_accessor :options# , :errors
+    # Probably need errors to provide feedback on why something didn't search.
+
     def initialize(options = {})
       options = HashWithIndifferentAccess.new.merge(options)
       self.options = options.reject {|k,v| !self.class.valid_option?(k) }
@@ -42,7 +48,7 @@ module MundaneSearch
 
     # The field(s) to search
     def target
-      options[:target]
+      options[:target] || options[:name]
     end
 
     # is the scope valid? AR scope vs. array, etc
@@ -51,8 +57,34 @@ module MundaneSearch
     end
 
     # Are the given params valid? If an attribute is required, is it present?
+    # appropiate arity for search method
     def valid_params?(params)
-      true
+      execute_validation() if options[:validate_with]
+    end
+
+    def issolate_arguments(params)
+      ai = options[:issolate_with] || options[:argument_issolation]
+      case ai
+      when Symbol
+        params[ai]
+      when Array
+        params.values_at(ai)
+      when Proc
+        ai.call(params)
+      else
+        params
+      end
+    end
+
+    def execute_validation(validation, value)
+      if validation ===  Regexp
+        value =~ validation
+      elsif validation.respond_to?(:call)
+        validation.call(value)
+      else
+        puts 'What kind of validation was that?'
+        # ??
+      end
     end
 
     def search_method
@@ -60,7 +92,15 @@ module MundaneSearch
     end
 
     def apply_to(scope, params = {})
-      search_method.call(scope, params)
+      search_method.call(scope, targets, params)
     end
+
+    # def temp_example_where(target, arguments)
+    #   scope.where(["? = ?", target, argument])
+    # end
+    # def temp_where_one_of(scope, targets, terms, options = {})
+    #   # arguments.inject(scope) {|scp, arg| scp.where ...}
+    #   scope.where({ target: arguments })
+    # end
   end
 end

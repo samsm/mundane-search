@@ -14,7 +14,7 @@ describe MundaneSearch::Filter do
 
   it "should filter with proc" do
     proc = ->(scope, params) { scope.select {|s| s > 2 } }
-    filter = Filter.new( search_method: proc )
+    filter = Filter.new(search_method: proc)
     filter.apply_to([1,2,3,4,5]).must_equal([3,4,5])
   end
 

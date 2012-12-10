@@ -32,6 +32,11 @@ describe MundaneSearch::Filter do
         extract_conditions(@params).sort.
         must_equal(['Matz', 'Ruby'])
     end
+
+    it "should extract through proc" do
+      Filter.new(extract_conditions: ->(params) { params.length }).
+        extract_conditions(@params).must_equal(2)
+    end
   end
 
 end

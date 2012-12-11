@@ -3,7 +3,7 @@ module MundaneSearch
   class InvalidOption < StandardError ; end
   class Filter
     def self.valid_option?(key)
-      valid_options = [:extract_conditions]
+      valid_options = [:extract_conditions, :search_method]
       raise InvalidOption unless valid_options.include?(key)
       true
     end
@@ -27,5 +27,12 @@ module MundaneSearch
       end
     end
 
+    def search_method
+      options[:search_method]
+    end
+
+    def apply_to(scope, params)
+      search_method.call(scope, extract_conditions(params))
+    end
   end
 end

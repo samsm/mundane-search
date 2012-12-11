@@ -12,11 +12,13 @@ describe MundaneSearch::Filter do
     }.must_raise(MundaneSearch::InvalidOption)
   end
 
-  # it "should filter with proc" do
-  #   proc = ->(scope, params) { scope.select {|s| s > 2 } }
-  #   filter = Filter.new(search_method: proc)
-  #   filter.apply_to([1,2,3,4,5]).must_equal([3,4,5])
-  # end
+  describe "#search_method" do
+    it "should use option[:search_method]" do
+      proc = ->(a,b,c) { 'nice' }
+      result = Filter.new(search_method: proc).search_method
+      assert_equal result, proc
+    end
+  end
 
   describe "#extract_conditions" do
     before do

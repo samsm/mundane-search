@@ -1,5 +1,5 @@
 module MundaneSearch
-  class Collection
+  class FilterCollection
     attr_accessor :filters
 
     def initialize(filters)
@@ -10,10 +10,11 @@ module MundaneSearch
     end
 
     def execute(collection, params = {}, select = nil, skip_when = nil)
-      select    ||= -> { true }
-      skip_when ||= ->(c,p) { false }
-      filters.select(select).inject(collection) do |coll, filter|
-        unless skip_when.call(collection, params)
+      select    ||= ->(filter) { true }
+      skip_when ||= ->(c,p)    { false }
+      params
+      filters.select(&select).inject(collection) do |coll, filter|
+        unless skip_when.call(coll, params)
           filter.apply_to(coll, params)
         end
       end

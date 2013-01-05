@@ -4,7 +4,6 @@ describe MundaneSearch::FilterCollection do
   FilterCollection = MundaneSearch::FilterCollection
 
   let(:filter) { mock_filter([1,2], [collection,params]) }
-  let(:params) { Hash.new }
   let(:filter_method) { ->(c,p) { c.pop ; c } }
   let(:collection)    { [1,2,3] }
   let(:params) { Hash.new }

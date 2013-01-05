@@ -1,4 +1,5 @@
 require 'active_support/hash_with_indifferent_access'
+
 module MundaneSearch
   class InvalidOption < StandardError ; end
   class Filter

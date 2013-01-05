@@ -6,9 +6,6 @@ module MundaneSearch
       self.filters = filters
     end
 
-    def add(filter)
-    end
-
     def execute(collection, params = {}, select = nil, skip_when = nil)
       select    ||= ->(filter) { true }
       skip_when ||= ->(c,p)    { false }

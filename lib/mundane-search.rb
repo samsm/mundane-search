@@ -1,6 +1,7 @@
 require "mundane-search/version"
-require "mundane-search/filter"
-require "mundane-search/filter_collection"
+require "mundane-search/builder"
+require "mundane-search/result"
+require "mundane-search/basic_filter"
 
 module MundaneSearch
 end

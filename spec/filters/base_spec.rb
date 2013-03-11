@@ -7,7 +7,7 @@ describe MundaneSearch::Filters::Base do
   let(:params)     { { 'foo' => 'bar' } }
 
   it "should pass through" do
-    base = Base.new
-    base.call(collection, params).must_equal [collection, params]
+    base = Base.new(collection, params)
+    base.call.must_equal [collection, params]
   end
 end

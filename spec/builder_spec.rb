@@ -24,6 +24,8 @@ describe MundaneSearch::Builder do
     builder = Builder.new do
       use NothingFilterForTest
     end
-    builder.filters.first.must_be_kind_of NothingFilterForTest
+    canister = builder.filters.first
+    canister.must_be_kind_of MundaneSearch::FilterCanister
+    canister.filter.must_equal NothingFilterForTest
   end
 end

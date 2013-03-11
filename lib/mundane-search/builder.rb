@@ -5,12 +5,12 @@ module MundaneSearch
       instance_eval(&block) if block_given?
     end
 
-    def use(middleware, *args, &block)
-      @use << middleware.new(config, *args, &block)
+    def use(filter, *args, &block)
+      @use << filter_canister.new(filter, *args, &block)
     end
 
-    def config
-      {} # ???, search_mechanism, result_type
+    def filter_canister
+      FilterCanister
     end
 
     def filters

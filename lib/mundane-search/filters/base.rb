@@ -1,13 +1,20 @@
 module MundaneSearch::Filters
   class Base
-    attr_accessor :options
-
-    def initialize(options = {})
-      self.options = options
+    attr_reader :collection, :params, :options
+    def initialize(collection, params, options= {})
+      @collection, @params, @options = collection, params, options
     end
 
-    def call(collection, params)
-      [collection, params]
+    def filtered_collection
+      collection
+    end
+
+    def filtered_params
+      params
+    end
+
+    def call
+      [filtered_collection, filtered_params]
     end
   end
 end

@@ -1,9 +1,10 @@
 module MundaneSearch
   class Result
-    attr_reader :collection
+    include Enumerable
+    attr_reader :collection, :params, :previous_result
     def initialize(previous_result, filter)
       @previous_result = previous_result
-      @collection, @params = filter[previous_result.collection, previous_result.params]
+      @collection, @params = filter.call(previous_result.collection, previous_result.params)
     end
 
     def add_filter(filter)
@@ -18,13 +19,8 @@ module MundaneSearch
   end
 
   class InitialResult < Result
-    attr_reader :collection, :params
     def initialize(collection,params)
       @collection, @params = collection, params
-    end
-
-    def search_mechanism
-      options[:search_mechanism] or default
     end
   end
 end

@@ -1,10 +1,4 @@
 require_relative 'minitest_helper'
-require 'ostruct'
-
-class NothingFilterForTest
-  def initialize(a)     ; end
-  def call(c,p) ; [c,p] ; end
-end
 
 describe MundaneSearch::Builder do
   Builder = MundaneSearch::Builder
@@ -15,12 +9,12 @@ describe MundaneSearch::Builder do
   describe "empty search" do
     let(:builder) { Builder.new }
 
-    it "should return unchanged collection" do
+    it "should return unchanged collection on call" do
       result_collection, result_params = builder.call(collection, params)
       result_collection.must_equal collection
     end
 
-    it "should return unchanged params" do
+    it "should return unchanged params on call" do
       result_collection, result_params = builder.call(collection, params)
       result_params.must_equal params
     end

@@ -10,7 +10,7 @@ module MundaneSearch
     end
 
     def config
-      {} # search_mechanism, result_type
+      {} # ???, search_mechanism, result_type
     end
 
     def filters

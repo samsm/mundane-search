@@ -1,7 +1,7 @@
 require "mundane-search/version"
 require "mundane-search/builder"
 require "mundane-search/result"
-require "mundane-search/basic_filter"
+require "mundane-search/filters"
 
 module MundaneSearch
 end

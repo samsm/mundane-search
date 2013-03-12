@@ -22,12 +22,12 @@ module MundaneSearch
       @use
     end
 
-    def call(collection, params)
-      result = execute(collection, params)
+    def call(collection, params = {})
+      result = result_for(collection, params)
       result.collection
     end
 
-    def execute(collection, params)
+    def result_for(collection, params = {})
       initial_result = InitialResult.new(collection, params)
       filters.inject(initial_result) do |result, filter|
         result.add_filter(filter)

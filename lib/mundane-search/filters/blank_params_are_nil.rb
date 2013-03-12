@@ -1,7 +1,7 @@
 module MundaneSearch::Filters
   class BlankParamsAreNil < Base
     def filtered_params
-      params.inject({}) do |h,e|
+      params.inject({}) do |hash,e|
         val = e.last
         hash[e.first] = (val.nil? || val.empty?) ? nil : val
         hash

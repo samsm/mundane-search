@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.dirname(__FILE__) + "/../lib"
+
+require 'rubygems'
+require 'bundler/setup'
+require 'mundane-search'
+
+begin
+  require 'pry'
+  Pry.start
+rescue LoadError
+  require 'irb'
+  IRB.start
+end

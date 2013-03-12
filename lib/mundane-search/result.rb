@@ -8,11 +8,10 @@ module MundaneSearch
     end
 
     def add_filter(filter)
-      self.class.new(self,filter)
+      Result.new(self,filter)
     end
 
     def each(*args, &block)
-      # ???
       return enum_for(__callee__) unless block_given?
       collection.each(*args, &block)
     end

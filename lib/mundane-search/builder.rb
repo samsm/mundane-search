@@ -1,7 +1,12 @@
+require_relative './filters'
+
 module MundaneSearch
   class Builder
+    include MundaneSearch::Filters
+
     def initialize(&block)
       @use = []
+
       instance_eval(&block) if block_given?
     end
 
@@ -19,7 +24,7 @@ module MundaneSearch
 
     def call(collection, params)
       result = execute(collection, params)
-      [result.collection, result.params]
+      result.collection
     end
 
     def execute(collection, params)

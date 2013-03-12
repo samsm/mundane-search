@@ -10,13 +10,7 @@ describe MundaneSearch::Builder do
     let(:builder) { Builder.new }
 
     it "should return unchanged collection on call" do
-      result_collection, result_params = builder.call(collection, params)
-      result_collection.must_equal collection
-    end
-
-    it "should return unchanged params on call" do
-      result_collection, result_params = builder.call(collection, params)
-      result_params.must_equal params
+      builder.call(collection, params).must_equal(collection)
     end
   end
 

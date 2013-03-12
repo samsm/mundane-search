@@ -1,8 +1,13 @@
 module MundaneSearch::Filters
   class Base
+    include Helpers
     attr_reader :collection, :params, :options
     def initialize(collection, params, options= {})
       @collection, @params, @options = collection, params, options
+    end
+
+    def apply?
+      true
     end
 
     def filtered_collection

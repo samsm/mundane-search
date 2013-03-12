@@ -10,3 +10,11 @@ class NothingFilterForTest
   def initialize(a=nil) ; end
   def call(c,p) ; [c,p] ; end
 end
+
+def collection
+  %w(foo bar baz)
+end
+
+def params
+  { 'foo' => 'bar' }
+end

@@ -19,5 +19,4 @@ describe MundaneSearch::Filters::ExactMatch do
     coll, parms = em.call
     coll.must_equal(['bar'])
   end
-
 end

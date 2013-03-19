@@ -20,7 +20,7 @@ Params are hash-like structures, such as those interpreted from forms and query 
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::ExactMatch, param_key: "fruit"
     end
-    built.call %w(apple orange blueberry), { 'fruit' => 'orange' }
+    built.call %w(apple orange blueberry), { 'fruit' => 'orange' } # ["orange"]
 
 ## Middleware
 
@@ -110,7 +110,21 @@ So yeah, it's fun. Here's a more practical example ... if you have clients that 
     end
     built.call %w(Pizza Pasta Antipasto Gumbo), { "food" => "", "noms" => "Gumbo" } # ["Gumbo"]
 
-So much to cover! I'm done typing for now.
+## ActiveRecord
+
+MundaneSearch can work with any collection object that can be passed around and modified. Filters can be designed to work with several types of collection.
+
+    class OnlyManagers < MundaneSearch::Filters::Base
+      def filtered_collection
+        case collection
+        when ActiveRecord::Relation
+          collection.where(postion: "manager")
+        else
+          collection.select {|e| e.position == "manager" }
+        end
+      end
+    end
+
 
 ## Contributing
 

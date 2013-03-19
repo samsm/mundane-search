@@ -5,6 +5,7 @@ require 'minitest/spec'
 require 'minitest/mock'
 
 require 'mundane-search'
+require 'pry' rescue nil
 
 class NothingFilterForTest
   def initialize(a=nil) ; end

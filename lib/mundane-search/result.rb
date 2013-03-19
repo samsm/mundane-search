@@ -16,10 +16,4 @@ module MundaneSearch
       collection.each(*args, &block)
     end
   end
-
-  class InitialResult < Result
-    def initialize(collection,params)
-      @collection, @params = collection, params
-    end
-  end
 end

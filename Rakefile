@@ -25,12 +25,13 @@ end
 namespace 'database' do
   desc "Setup test database"
   task :test_setup do
-    require './config/active_record_setup'
+    require './spec/active_record_setup'
     ActiveRecord::Migration.create_table :books do |t|
       t.string    :title
       t.string    :author
       t.date      :publication_date
       t.timestamp :first_purchased_at
+      t.integer   :sold
     end
   end
 end

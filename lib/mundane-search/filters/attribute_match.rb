@@ -1,11 +1,14 @@
-# module MundaneSearch::Filters
-#   class AttributeMatch < Base
-#     def params_key
-#       options[:value]
-#     end
-#
-#     def call(collection, params)
-#       collection.select {|e| e == params[params_key] }
-#     end
-#   end
-# end
+module MundaneSearch::Filters
+  class AttributeMatch < Typical
+    def filtered_collection
+      case collection
+      when ActiveRecord::Relation
+        collection.where(param_key => params[param_key.to_s])
+      when :sunspot?
+        # nothing yet
+      else
+        collection.select {|e| e.send(param_key) == params[param_key.to_s] }
+      end
+    end
+  end
+end

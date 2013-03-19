@@ -8,6 +8,7 @@ You know the deal:
 
     gem 'mundane-search' # in your Gemfile, then "bundle"
     # or just gem install mundane-search on your command line
+    require "mundane-search"
 
 ## Usage
 
@@ -15,12 +16,14 @@ Build a search using middleware, then run that search on a specific collection a
 
 Collections are typically array-like structures (arrays, ActiveRecord or Sunsport scoped collections, etc.)
 
-Params are hash-like structures, such as those interpreted from forms and query strings.
+Params are hash-like structures, such as those interpreted from forms and query strings. They are optional.
 
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::ExactMatch, param_key: "fruit"
     end
     built.call %w(apple orange blueberry), { 'fruit' => 'orange' } # ["orange"]
+
+If you check out project, ./script/console will get you a session with everything loaded up.
 
 ## Middleware
 
@@ -37,7 +40,7 @@ Then you can reference that filter when you build a search:
     built = MundaneSearch::Builder.new do
       use MustContainVowel
     end
-    built.call %w(CA TX NY FL IL), {} # ['CA','NY','IL']
+    built.call %w(CA TX NY FL IL) # ['CA','NY','IL']
 
 Filters are more useful when they are reusable. Arguments passed after the filter name (use Filter, arguments) will be passed into the filter's constructer.
 The Base filter in these examples sets an "options" variable with this argument.

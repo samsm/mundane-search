@@ -40,5 +40,9 @@ module MundaneSearch::Filters::Helpers
     def match_value
       params[param_key]
     end
+
+    def param_key_type
+      options[:type] || :string
+    end
   end
 end

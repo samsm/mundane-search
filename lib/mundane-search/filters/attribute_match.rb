@@ -1,8 +1,9 @@
 module MundaneSearch::Filters
   class AttributeMatch < Typical
     def filtered_collection
-      case collection
-      when ActiveRecord::Relation
+      # This switch ... somewhere else?
+      case collection.to_s
+      when "ActiveRecord::Relation"
         collection.where(param_key => params[param_key.to_s])
       when :sunspot?
         # nothing yet

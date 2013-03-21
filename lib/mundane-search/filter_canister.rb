@@ -5,8 +5,8 @@ module MundaneSearch
       @filter, @options = filter, args
     end
 
-    def call(collection, params)
-      filter.new(collection, params, *options).call
+    def build(collection, params)
+      filter.new(collection, params, *options)
     end
   end
 end

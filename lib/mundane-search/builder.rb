@@ -6,20 +6,11 @@ module MundaneSearch
 
     def initialize(&block)
       @use = []
-
       instance_eval(&block) if block_given?
     end
 
     def use(filter, *args, &block)
-      @use << filter_canister.new(filter, *args, &block)
-    end
-
-    def filter_canister
-      FilterCanister
-    end
-
-    def filters
-      @use
+      @use << build_filter_canister.call(filter, *args, &block)
     end
 
     def call(collection, params = {})
@@ -27,15 +18,27 @@ module MundaneSearch
       result.collection
     end
 
+    def result_class=(klass = nil)
+      @result_class = klass || Result
+    end
+
     def result_for(collection, params = {})
-      initial_result = InitialResult.new(collection, params)
-      filters.inject(initial_result) do |result, filter|
-        result.add_filter(filter)
+      initial_result = InitialResult.new(collection, params, result_class)
+      filter_canisters.inject(initial_result) do |result, canister|
+        result.add_filter(canister)
       end
+    end
+
+    private
+
+    attr_reader :result_class
+
+    def filter_canisters
+      @use
+    end
+
+    def build_filter_canister
+      FilterCanister.public_method(:new)
     end
   end
 end
-
-
-
-

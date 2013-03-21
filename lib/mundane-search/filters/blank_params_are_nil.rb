@@ -3,7 +3,7 @@ module MundaneSearch::Filters
     def filtered_params
       params.inject({}) do |hash,e|
         val = e.last
-        hash[e.first] = (val.nil? || val.empty?) ? nil : val
+        hash[e.first] = val.empty? ? nil : val
         hash
       end
     end

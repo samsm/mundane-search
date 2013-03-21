@@ -17,9 +17,14 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.add_dependency "activemodel"
+
   gem.add_development_dependency "minitest"
+  gem.add_development_dependency "mocha"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "activerecord"
   gem.add_development_dependency "sqlite3"
   gem.add_development_dependency "database_cleaner"
+  gem.add_development_dependency "actionpack"
+  gem.add_development_dependency "simple_form"
 end

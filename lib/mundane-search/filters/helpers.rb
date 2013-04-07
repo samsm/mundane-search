@@ -15,9 +15,7 @@ module MundaneSearch::Filters::Helpers
     def has_a_match_value
       include MatchValue
     end
-
   end
-
 
   module Optional
     def optional?

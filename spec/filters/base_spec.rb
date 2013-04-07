@@ -11,6 +11,16 @@ describe MundaneSearch::Filters::Base do
       base.expects(:filtered_params).returns(params)
       base.call.must_equal [collection, params]
     end
+
+    it "should equal [collection, params] when apply? is false" do
+      collection, params = Object.new, Object.new
+      def base.filtered_params     ; end
+      def base.filtered_collection ; end
+      base.expects(:apply?).returns(false)
+      base.expects(:collection).returns(collection)
+      base.expects(:params).returns(params)
+      base.call.must_equal [collection, params]
+    end
   end
 
   describe "#apply?" do

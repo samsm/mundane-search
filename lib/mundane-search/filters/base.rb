@@ -19,7 +19,11 @@ module MundaneSearch::Filters
     end
 
     def call
-      [filtered_collection, filtered_params]
+      if apply?
+        [filtered_collection, filtered_params]
+      else
+        [collection, params]
+      end
     end
   end
 end

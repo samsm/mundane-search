@@ -5,6 +5,7 @@ module MundaneSearch
     include Enumerable
     include ColumnsHash
     include ActionViewFormComponents
+    include Buildable
 
     def all_filters
       return @all_filters if @all_filters

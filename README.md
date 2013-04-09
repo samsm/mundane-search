@@ -12,18 +12,53 @@ You know the deal:
 
 ## Usage
 
-Build a search using middleware, then run that search on a specific collection and params.
+Still in the process of figuring this out! But much of it works like I want, so hopefully no brutal changes.
 
-Collections are typically array-like structures (arrays, ActiveRecord or Sunsport scoped collections, etc.)
+### Typical use case
+
+Build a search, then run that search on a specific collection and params.
+
+Collections are typically array-like structures (arrays, ActiveRecord or Sunspot scoped collections, etc.)
 
 Params are hash-like structures, such as those interpreted from forms and query strings. They are optional.
+
+Create a search:
+
+    class BookSearch < MundaneSearch::Result
+    end
+
+Add filters to it:
+
+    class BookSearch < MundaneSearch::Result
+      use use MundaneSearch::Filters::ExactMatch, param_key: "title"
+    end
+
+Then use that search in your controllers:
+
+    # params = { "title" => "A Tale of Two Cities" }
+    @result = BookSearch.results_for(Book.scoped, params)
+
+The returned result is enumerable:
+
+    @result.each {|book| ... }
+    @result.first
+
+And has some Rails form compatibility:
+
+    <%= search_form_for(@result) do |f| %>
+      <%= f.input :title %>
+    <% end %>
+
+### Sans sugar
+
+MundaneSearch can be used outside of Rails on whatever sort of object you want:
 
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::ExactMatch, param_key: "fruit"
     end
     built.call %w(apple orange blueberry), { 'fruit' => 'orange' } # ["orange"]
 
-If you check out project, ./script/console will get you a session with everything loaded up.
+If you git checkout the project, ./script/console will get you a session with everything loaded up.
 
 ## Middleware
 

@@ -6,7 +6,13 @@ module MundaneSearch
     end
 
     def build(collection, params)
-      filter.new(collection, params, *options)
+      filter_variant(collection).new(collection, params, *options)
+    end
+
+    def filter_variant(collection)
+      base = collection.class.to_s.split('::').first.to_sym
+      varient = filter.constants.detect {|c| c == base }
+      varient ? filter.const_get(varient) : filter
     end
   end
 end

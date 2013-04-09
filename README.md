@@ -113,18 +113,22 @@ So yeah, it's fun. Here's a more practical example ... if you have clients that 
     end
     built.call %w(Pizza Pasta Antipasto Gumbo), { "food" => "", "noms" => "Gumbo" } # ["Gumbo"]
 
-## ActiveRecord
+## Supporting multiple collection types
 
 MundaneSearch can work with any collection object that can be passed around and modified. Filters can be designed to work with several types of collection.
 
+When a filter is about to be built, MundaneSearch looks at the base class of the collection being searched and checks to see if there is a subclass with the same name.
+
+In the following example, the ActiveRecord subclass will be used instead of the OnlyManagers class when the collection is an instance of ActiveRecord::Relation.
+
     class OnlyManagers < MundaneSearch::Filters::Base
-      def filtered_collection
-        case collection
-        when ActiveRecord::Relation
+      class ActiveRecord < self
+        def filtered_collection
           collection.where(postion: "manager")
-        else
-          collection.select {|e| e.position == "manager" }
         end
+      end
+      def filtered_collection
+        collection.select {|e| e.position == "manager" }
       end
     end
 

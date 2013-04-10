@@ -8,5 +8,6 @@ module MundaneSearch
     autoload :ExactMatch,        "#{filters_path}/exact_match"
     autoload :BlankParamsAreNil, "#{filters_path}/blank_params_are_nil"
     autoload :AttributeMatch,    "#{filters_path}/attribute_match"
+    autoload :Operator,          "#{filters_path}/operator"
   end
 end

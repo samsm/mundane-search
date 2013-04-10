@@ -1,5 +1,4 @@
 require_relative '../minitest_helper'
-require 'ostruct'
 require_relative '../demo_data'
 
 describe MundaneSearch::Filters::AttributeMatch do

@@ -18,7 +18,7 @@ module MundaneSearch
 
     module ClassMethods
       # Simple delegations to the builder
-      [:use, :result_for, :call].each do |method|
+      [:use, :result_for, :call, :employ].each do |method|
         define_method method do |*args, &block|
           builder.send(method, *args, &block)
         end

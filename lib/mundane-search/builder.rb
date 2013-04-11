@@ -1,8 +1,7 @@
-require_relative './filters'
-
 module MundaneSearch
   class Builder
-    include MundaneSearch::Filters
+
+    include MundaneSearch::Filters::Shortcuts
 
     def initialize(&block)
       @use = []

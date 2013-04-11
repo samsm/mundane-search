@@ -11,11 +11,5 @@ module MundaneSearch
     def to_key
       ['result-of-to-key']
     end
-
-
-    # module ClassMethods
-    #   # ...
-    # end
-
   end
 end

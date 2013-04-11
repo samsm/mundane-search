@@ -13,7 +13,7 @@ describe MundaneSearch::Buildable do
   end
 
   it "should add proxy methods" do
-    [:use, :result_for, :call].each do |method|
+    [:use, :result_for, :call, :employ].each do |method|
       built.must_respond_to method
     end
   end

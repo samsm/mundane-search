@@ -31,11 +31,3 @@ module MundaneSearch
     end
   end
 end
-
-
-if false
-  class BookSearch < MundaneSearch::Result
-    employ :attribute_filter, param_key: 'title'
-  end
-
-end

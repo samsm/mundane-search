@@ -18,11 +18,11 @@ module MundaneSearch
     end
 
     def result_class=(klass = nil)
-      @result_class = klass || Result
+      @result_class = klass || Stage
     end
 
     def result_for(collection, params = {})
-      initial_result = InitialResult.new(collection, params, result_class)
+      initial_result = InitialStage.new(collection, params, result_class)
       filter_canisters.inject(initial_result) do |result, canister|
         result.add_filter(canister)
       end

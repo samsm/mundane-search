@@ -24,7 +24,7 @@ describe "intgration with simple_form" do
     form = formed.simple_form_for(result) do |f|
       f.input :title
     end
-    form.must_match '<input class="string required" id="mundane_search_result_title" name="mundane_search_result[title]" required="required" size="50" type="text" />'
+    form.must_match '<input class="string required" id="mundane_search_stage_title" name="mundane_search_stage[title]" required="required" size="50" type="text" />'
   end
 end
 

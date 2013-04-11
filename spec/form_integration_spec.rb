@@ -22,8 +22,7 @@ describe "integration with Rails forms" do
       form = formed.form_for(result) do |f|
         f.text_field :title
       end
-      search_name = "mundane_search_result"
-      form.must_match '<input id="mundane_search_result_title" name="mundane_search_result[title]" size="30" type="text" />'
+      form.must_match '<input id="mundane_search_stage_title" name="mundane_search_stage[title]" size="30" type="text" />'
     end
   end
 end

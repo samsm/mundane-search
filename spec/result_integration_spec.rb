@@ -2,9 +2,9 @@ require_relative 'minitest_helper'
 
 describe "integration results" do
 
-  describe MundaneSearch::Result do
+  describe MundaneSearch::Stage do
     let(:result_class) do
-      Class.new(MundaneSearch::Result) do
+      Class.new(MundaneSearch::Stage) do
         use MundaneSearch::Filters::ExactMatch, param_key: "foo"
       end
     end

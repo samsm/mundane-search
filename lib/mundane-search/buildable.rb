@@ -7,10 +7,7 @@ module MundaneSearch
     included do
       class << self
         def builder
-          return @builder if @builder
-          @builder = Builder.new
-          @builder.result_class = self
-          @builder
+          @builder ||= Builder.new
         end
       end
     end

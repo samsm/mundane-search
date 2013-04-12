@@ -37,7 +37,8 @@ def requirements_for_form_for_tests!
       include ActionView::Helpers::FormHelper
       include ActionController::RecordIdentifier
 
-      %w(mundane_search_initial_stage_path mundane_search_stage_path).each do  |path|
+      %w(mundane_search_initial_stack_path mundane_search_stack_path
+         mundane_search_result_path generic_search_path).each do  |path|
         define_method path do |a,b|
           "/#{path}"
         end

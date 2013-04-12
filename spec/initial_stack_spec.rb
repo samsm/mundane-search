@@ -1,10 +1,10 @@
 require_relative 'minitest_helper'
 
-describe MundaneSearch::InitialStage do
-  let(:initial) { MundaneSearch::InitialStage.new(collection, params) }
+describe MundaneSearch::InitialStack do
+  let(:initial) { MundaneSearch::InitialStack.new(collection, params) }
 
   it "should take a collection and params" do
-    initial.must_be_kind_of MundaneSearch::InitialStage
+    initial.must_be_kind_of MundaneSearch::InitialStack
   end
 
   it "should always return empty array on filters" do

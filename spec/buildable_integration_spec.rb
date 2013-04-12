@@ -8,10 +8,7 @@ describe MundaneSearch::Buildable do
   end
 
   it "should limit results using exact match filter" do
-
     built.use MundaneSearch::Filters::ExactMatch, param_key: "foo"
-    built.builder.result_class = MundaneSearch::Stage
-
     built.call(collection, params).must_equal(['bar'])
   end
 end

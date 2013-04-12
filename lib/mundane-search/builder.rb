@@ -17,20 +17,14 @@ module MundaneSearch
       result.collection
     end
 
-    def result_class=(klass = nil)
-      @result_class = klass || Stage
-    end
-
     def result_for(collection, params = {})
-      initial_result = InitialStage.new(collection, params, result_class)
+      initial_result = InitialStack.new(collection, params)
       filter_canisters.inject(initial_result) do |result, canister|
         result.add_filter(canister)
       end
     end
 
     private
-
-    attr_reader :result_class
 
     def filter_canisters
       @use

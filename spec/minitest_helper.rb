@@ -1,5 +1,5 @@
 require 'rubygems'
-gem 'minitest' # ensures you're using the gem, and not the built in MT
+gem 'minitest' # ensures we're using the gem, and not the built in MT
 
 $:.unshift File.dirname(__FILE__) + "/../lib"
 
@@ -10,11 +10,6 @@ require "mocha/setup"
 
 require 'mundane-search'
 require 'pry' rescue nil
-
-class NothingFilterForTest
-  def initialize(a=nil) ; end
-  def call(c,p) ; [c,p] ; end
-end
 
 def collection
   %w(foo bar baz)
@@ -52,7 +47,7 @@ def requirements_for_form_for_tests!
   end
 end
 
-def requires_for_simple_form!
+def requirements_for_simple_form!
   require 'active_support/concern'
   %w(form_options).each do |name|
     require "action_view/helpers/#{name}_helper"

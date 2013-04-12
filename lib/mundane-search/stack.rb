@@ -22,7 +22,7 @@ module MundaneSearch
       filter.call.last
     end
 
-    def add_filter(filter_canister)
+    def add(filter_canister)
       Stack.new(self,filter_canister)
     end
 

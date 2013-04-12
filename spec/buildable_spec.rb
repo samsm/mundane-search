@@ -1,7 +1,6 @@
 require_relative 'minitest_helper'
 
 describe MundaneSearch::Buildable do
-
   let(:built) do
     Class.new do
       include MundaneSearch::Buildable

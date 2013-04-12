@@ -24,6 +24,12 @@ describe MundaneSearch::Stack do
     result.params.must_equal params
   end
 
+  it "should add canister to create new stack" do
+    new_result = result.add(filter_canister)
+    new_result.must_be_kind_of result.class
+    new_result.wont_equal result
+  end
+
   describe "all filters" do
     it "should list own filter" do
       result = MundaneSearch::Stack.new(initial, filter_canister)

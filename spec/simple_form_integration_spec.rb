@@ -1,7 +1,7 @@
 require_relative 'minitest_helper'
 
 requirements_for_form_for_tests!
-requires_for_simple_form!
+requirements_for_simple_form!
 
 describe "intgration with simple_form" do
   let(:result_class) { Class.new(MundaneSearch::Result) }

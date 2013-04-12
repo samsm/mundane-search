@@ -12,13 +12,13 @@ module MundaneSearch
       @stack = self.class.builder.result_for(collection,params)
     end
 
-    def call
+    def to_a
       stack.collection
     end
 
     def each(*args, &block)
       return enum_for(__callee__) unless block_given?
-      call.each(*args, &block)
+      to_a.each(*args, &block)
     end
 
     private

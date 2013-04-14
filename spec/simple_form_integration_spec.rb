@@ -6,6 +6,7 @@ requirements_for_simple_form!
 describe "intgration with simple_form" do
   let(:result_class) { Class.new(MundaneSearch::Result) }
   let(:result) { result_class.new(open_struct_books, params) }
+  let(:result_model) { result.to_model }
 
   let(:simple_formed_class) do
     Class.new(formed_class) do
@@ -24,10 +25,9 @@ describe "intgration with simple_form" do
 
   it "should determine input" do
     result_class.builder.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
-    form = formed.simple_form_for(result) do |f|
+    form = formed.simple_form_for(result_model) do |f|
       f.input :title
     end
-    search_prefix = "generic_search"
     form.must_match %{<input class="string required" id="#{search_prefix}_title"
                              name="#{search_prefix}[title]" required="required"
                              size="50" type="text" />}.gsub(/\s+/,' ')

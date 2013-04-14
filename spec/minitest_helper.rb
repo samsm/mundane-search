@@ -33,7 +33,8 @@ def requirements_for_form_for_tests!
       include ActionController::RecordIdentifier
 
       %w(mundane_search_initial_stack_path mundane_search_stack_path
-         mundane_search_result_path generic_search_path).each do  |path|
+         mundane_search_result_path generic_search_path
+         mundane_search_result_model_path).each do  |path|
         define_method path do |a,b|
           "/#{path}"
         end
@@ -44,6 +45,10 @@ def requirements_for_form_for_tests!
         false
       end
     end
+  end
+
+  def search_prefix
+    "mundane_search_result_model"
   end
 end
 

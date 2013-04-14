@@ -23,9 +23,9 @@ module MundaneSearch
       end
     end
 
-    private
-
     attr_reader :filter_canisters
+
+    private
 
     def build_filter_canister
       FilterCanister.public_method(:new)

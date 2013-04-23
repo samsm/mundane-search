@@ -30,7 +30,7 @@ Create a search:
 Add filters to it:
 
     class BookSearch < MundaneSearch::Result
-      use use MundaneSearch::Filters::ExactMatch, param_key: "title"
+      use MundaneSearch::Filters::ExactMatch, param_key: "title"
     end
 
 Then use that search in your controllers:

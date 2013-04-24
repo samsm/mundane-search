@@ -1,6 +1,8 @@
 require 'ostruct'
+require 'active_support/concern'
 
 module ColumnsHash
+  extend ActiveSupport::Concern
   class Attribute < OpenStruct
     def number?
       number
@@ -19,15 +21,18 @@ module ColumnsHash
     attribute
   end
 
+  module ClassMethods
+    def columns_hash
+      @columns_hash ||= {}
+    end
+
+    def attribute_column(name, attribute_type)
+      columns_hash[name] = ColumnsHash.generate({name: name, type: attribute_type})
+    end
+  end
+
   def column_for_attribute(attribute)
-    columns_hash[attribute]
+    self.class.columns_hash[attribute]
   end
 
-  def attribute_column(name, attribute_type)
-    columns_hash[name] = ColumnsHash.generate({name: name, type: attribute_type})
-  end
-
-  def columns_hash
-    @columns_hash ||= {}
-  end
 end

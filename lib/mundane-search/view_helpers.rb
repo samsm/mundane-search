@@ -7,10 +7,14 @@ module MundaneSearch
       # else
       #   # Auto-generate form
       # end
-      form_for(record, search_form_default_options(record).merge(options), &block)
+      form_for(record.to_model, search_form_default_options.merge(options), &block)
     end
 
-    def search_form_default_options(record)
+    def simple_search_form_for(record, options = {}, &block)
+      simple_form_for(record.to_model, search_form_default_options.merge(options), &block)
+    end
+
+    def search_form_default_options
       {
         method: "GET"
       }

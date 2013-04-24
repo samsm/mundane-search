@@ -5,13 +5,23 @@ module MundaneSearch
     include Buildable
     include Enumerable
 
+    class << self
+      def options
+        @options ||= {}
+      end
+    end
+
     attr_reader :stack
     def initialize(collection, params)
       @stack = self.class.builder.result_for(collection,params)
     end
 
     def to_model
-      @result_model ||= ResultModel.new(self)
+      @result_model ||= self.class.result_model_class(self).new(self)
+    end
+
+    def self.result_model_class(result)
+      @result_model_class ||= ResultModel.new_model_for(result)
     end
 
     def to_a

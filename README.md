@@ -14,7 +14,7 @@ You know the deal:
 
 Still in the process of figuring this out! But much of it works like I want, so hopefully no brutal changes.
 
-### Typical use case
+### Typical use
 
 Build a search, then run that search on a specific collection and params.
 
@@ -49,7 +49,7 @@ And has some Rails form compatibility:
       <%= f.input :title %>
     <% end %>
 
-### Sans sugar
+## Sans sugar
 
 MundaneSearch can be used outside of Rails on whatever sort of object you want:
 

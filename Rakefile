@@ -38,5 +38,5 @@ end
 
 #Rake::Task['test'].clear
 desc "Run all tests"
-task 'test' => %w[test:unit test:integration]
+task 'test' => %w[test:integration test:unit]
 task 'default' => 'test'

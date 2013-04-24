@@ -7,10 +7,7 @@ module MundaneSearch
     included do
       class << self
         def builder
-          return @builder if @builder
-          @builder = Builder.new
-          @builder.result_class = self
-          @builder
+          @builder ||= Builder.new
         end
       end
     end
@@ -18,7 +15,7 @@ module MundaneSearch
 
     module ClassMethods
       # Simple delegations to the builder
-      [:use, :result_for, :call].each do |method|
+      [:use, :result_for, :call, :employ].each do |method|
         define_method method do |*args, &block|
           builder.send(method, *args, &block)
         end

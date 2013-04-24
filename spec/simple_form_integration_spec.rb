@@ -1,9 +1,13 @@
+require_relative 'minitest_helper'
+
 requirements_for_form_for_tests!
-requires_for_simple_form!
+requirements_for_simple_form!
 
 describe "intgration with simple_form" do
-  let(:built)  { MundaneSearch::Builder.new }
-  let(:result) { built.result_for(open_struct_books, params)}
+  let(:result_class) { Class.new(MundaneSearch::Result) }
+  let(:result) { result_class.new(open_struct_books, params) }
+  let(:result_model) { result.to_model }
+
   let(:simple_formed_class) do
     Class.new(formed_class) do
       include SimpleForm::ActionViewExtensions::FormHelper
@@ -20,11 +24,13 @@ describe "intgration with simple_form" do
   end
 
   it "should determine input" do
-    built.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
-    form = formed.simple_form_for(result) do |f|
+    result_class.builder.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
+    form = formed.simple_form_for(result_model) do |f|
       f.input :title
     end
-    form.must_match '<input class="string required" id="mundane_search_result_title" name="mundane_search_result[title]" required="required" size="50" type="text" />'
+    form.must_match %{<input class="string required" id="#{search_prefix}_title"
+                             name="#{search_prefix}[title]" required="required"
+                             size="50" type="text" />}.gsub(/\s+/,' ')
   end
 end
 

@@ -2,14 +2,15 @@ require_relative 'minitest_helper'
 requirements_for_form_for_tests!
 
 describe "integration with Rails forms" do
-  let(:built)  { MundaneSearch::Builder.new }
-  let(:result) { built.result_for(open_struct_books, params)}
+  let(:result_class) { Class.new(MundaneSearch::Result) }
+  let(:result) { result_class.new(open_struct_books, params) }
+  let(:result_model) { result.to_model }
 
   describe "with Rails' form_for" do
     let(:formed) { formed_class.new }
 
     it "should convert to model" do
-      formed.convert_to_model(result).must_equal result
+      formed.convert_to_model(result).must_equal result.to_model
     end
 
     it "should generate form from search result" do
@@ -18,12 +19,11 @@ describe "integration with Rails forms" do
     end
 
     it "should extract values from param_key for text_field accessors" do
-      built.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
-      form = formed.form_for(result) do |f|
+      result_class.builder.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
+      form = formed.form_for(result_model) do |f|
         f.text_field :title
       end
-      search_name = "mundane_search_result"
-      form.must_match '<input id="mundane_search_result_title" name="mundane_search_result[title]" size="30" type="text" />'
+      form.must_match %{<input id="#{search_prefix}_title" name="#{search_prefix}[title]" size="30" type="text" />}
     end
   end
 end

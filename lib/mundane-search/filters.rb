@@ -3,6 +3,7 @@ module MundaneSearch
     filters_path = "#{File.dirname(__FILE__)}/filters"
 
     autoload :Helpers,           "#{filters_path}/helpers"
+    autoload :Shortcuts,         "#{filters_path}/shortcuts"
     autoload :Base,              "#{filters_path}/base"
     autoload :Typical,           "#{filters_path}/typical"
     autoload :ExactMatch,        "#{filters_path}/exact_match"

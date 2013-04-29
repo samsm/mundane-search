@@ -1,4 +1,6 @@
 require 'active_model/validations'
+require 'active_model/naming'
+require 'active_model/translation'
 
 module MundaneSearch
   class ResultModel
@@ -51,16 +53,6 @@ module MundaneSearch
     private
 
     attr_reader :result
-
-    # Attribute methods so that Rails view helpers can access param values.
-    def method_missing(m, *args)
-      result.stack.all_filters.each do |filter|
-        if filter.respond_to?(:param_key) && filter.param_key.to_s == m.to_s
-          return result.stack.params[filter.param_key.to_s]
-        end
-      end
-      super
-    end
 
   end
 

@@ -18,19 +18,20 @@ describe ColumnsHash do
   end
 
   describe "applied to class" do
-    before do
-      @with_columns = Class.new do
+    let(:columned_class) do
+      Class.new do
         include ColumnsHash
-      end.new
+      end
     end
+    let(:columned) { columned_class.new }
 
     it "should have a columns_hash" do
-      @with_columns.columns_hash.must_be_kind_of Hash
+      columned_class.columns_hash.must_be_kind_of Hash
     end
 
     it "should store (and retrieve) a column type" do
-      @with_columns.attribute_column(:title, :string)
-      @with_columns.column_for_attribute(:title).type.must_equal :string
+      columned_class.attribute_column(:title, :string)
+      columned.column_for_attribute(:title).type.must_equal :string
     end
   end
 end

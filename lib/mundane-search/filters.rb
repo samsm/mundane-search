@@ -1,14 +1,11 @@
 module MundaneSearch
   module Filters
-    filters_path = "#{File.dirname(__FILE__)}/filters"
 
-    autoload :Helpers,           "#{filters_path}/helpers"
-    autoload :Shortcuts,         "#{filters_path}/shortcuts"
-    autoload :Base,              "#{filters_path}/base"
-    autoload :Typical,           "#{filters_path}/typical"
-    autoload :ExactMatch,        "#{filters_path}/exact_match"
-    autoload :BlankParamsAreNil, "#{filters_path}/blank_params_are_nil"
-    autoload :AttributeMatch,    "#{filters_path}/attribute_match"
-    autoload :Operator,          "#{filters_path}/operator"
+    # autoload all the stuff in filters under this namespace
+    Dir.glob("#{File.dirname(__FILE__)}/filters/*.rb").each do |filename|
+      class_name = File.basename(filename, '.*').split('_').collect(&:capitalize).join.to_sym
+      autoload class_name, filename
+    end
+
   end
 end

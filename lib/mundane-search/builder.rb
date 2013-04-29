@@ -17,6 +17,7 @@ module MundaneSearch
     end
 
     def result_for(collection, params = {})
+      params ||= {} # tollerate nil
       initial_stack = InitialStack.new(collection, params)
       filter_canisters.inject(initial_stack) do |stack, canister|
         stack.add(canister)

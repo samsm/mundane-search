@@ -20,9 +20,9 @@ describe MundaneSearch::ResultModel do
       filter
     end
     let(:result) { MundaneSearch::Result.new(collection, params) }
-    let(:result_model) { MundaneSearch::ResultModel.new(result) }
+    let(:result_model) { result.to_model }
     it "should create accessors for params_keys" do
-      result.expects(:stack).returns(stack)
+      result.expects(:stack).at_least_once.returns(stack)
       result_model.foo.must_equal 'bar'
     end
   end

@@ -14,8 +14,5 @@ module MundaneSearch::Filters
       options[:operator]
     end
 
-    def target
-      options[:target] || param_key
-    end
   end
 end

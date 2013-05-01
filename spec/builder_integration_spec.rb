@@ -7,6 +7,10 @@ describe MundaneSearch::Builder do
     built.call(collection, params).must_equal(collection)
   end
 
+  it "should tollerate nil params (convert to empty hash)" do
+    built.call(collection, nil).must_equal(collection)
+  end
+
   it "should limit results using exact match filter" do
     built.use MundaneSearch::Filters::ExactMatch, param_key: "foo"
     built.call(collection, params).must_equal(['bar'])

@@ -25,6 +25,10 @@ describe MundaneSearch::ResultModel do
       result.expects(:stack).at_least_once.returns(stack)
       result_model.foo.must_equal 'bar'
     end
+
+    it "should not be considered to be persisted" do
+      result_model.wont_be :persisted?
+    end
   end
 
 end

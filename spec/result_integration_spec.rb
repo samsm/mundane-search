@@ -7,14 +7,18 @@ describe MundaneSearch::Result do
     end
   end
 
+  let(:result) { result_class.new(collection, params) }
+
   it "should run search from result class" do
-    result_class.new(collection, params).to_a.must_equal ["bar"]
+    result.to_a.must_equal ["bar"]
   end
 
   it "should return result in same class" do
-    result = result_class.new(collection, params)
     result.must_be_kind_of result_class
     result.first.must_equal "bar"
   end
-end
 
+  it "should return result model" do
+    result.to_model.must_be_kind_of(MundaneSearch::ResultModel)
+  end
+end

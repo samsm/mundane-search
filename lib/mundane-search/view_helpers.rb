@@ -11,6 +11,7 @@ module MundaneSearch
     end
 
     def simple_search_form_for(record, options = {}, &block)
+      # TODO: warn if simple_form not available?
       simple_form_for(record.to_model, search_form_default_options.merge(options), &block)
     end
 

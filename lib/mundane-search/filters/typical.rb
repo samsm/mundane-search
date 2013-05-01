@@ -1,7 +1,8 @@
 module MundaneSearch::Filters
   class Typical < Base
-    has_a_match_value
-    optional_without_match_value
+    include Optional
+    include OptionalWithoutMatchValue
+    include MatchValue
 
     def target
       options[:target] || param_key

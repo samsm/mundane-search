@@ -1,5 +1,8 @@
 module MundaneSearch::Filters
   class Typical < Base
+    def self.param_key_type
+      :string # common default
+    end
 
     def target
       options[:target] || param_key

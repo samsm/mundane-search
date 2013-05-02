@@ -7,16 +7,15 @@ module MundaneSearch
     include ColumnsHash
     include ActiveModel::Validations
 
-    def self.new_model_for(result)
-      result_class = result.class
-      Class.new(ResultModel) do |rm|
-        rm.model_name = result_class.options[:name] || result_class.name
-        result.stack.all_filters.each do |filter|
-          if filter.respond_to?(:param_key) && filter.param_key
-            # Need real type here:
-            attribute_column(filter.param_key, :string)
-            define_method filter.param_key do
-              send(:result).stack.params[filter.param_key.to_s]
+    def self.model_class_for(result_class)
+      builder = result_class.builder
+      Class.new(ResultModel) do |model_class|
+        model_class.model_name = result_class.options[:name] || result_class.name
+        builder.filter_canisters.each do |fc|
+          if fc.param_key
+            attribute_column(fc.param_key, fc.param_key_type)
+            define_method(fc.param_key) do
+              send(:result).stack.params[fc.param_key.to_s]
             end
           end
         end

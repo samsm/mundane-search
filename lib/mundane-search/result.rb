@@ -17,11 +17,11 @@ module MundaneSearch
     end
 
     def to_model
-      @result_model ||= self.class.result_model_class(self).new(self)
+      @result_model ||= self.class.result_model_class.new(self)
     end
 
-    def self.result_model_class(result)
-      @result_model_class ||= ResultModel.new_model_for(result)
+    def self.result_model_class
+      @result_model_class ||= ResultModel.model_class_for(self)
     end
 
     def to_a

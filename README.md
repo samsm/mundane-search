@@ -148,6 +148,19 @@ So yeah, it's fun. Here's a more practical example ... if you have clients that 
     end
     built.call %w(Pizza Pasta Antipasto Gumbo), { "food" => "", "noms" => "Gumbo" } # ["Gumbo"]
 
+### A shortcut for referencing filters
+
+If a filter is defined directly under MundaneSearch::Filters or Object (such as when you just define a class without a namespace), you can reference it with a underscored version of that filter.
+
+The following two "use" designations would use the same filter.
+
+    MundaneSearch::Builder.new do
+      use MundaneSearch::Filters::ExactMatch, param_key: "foo"
+      use :exact_match, param_key: "foo"
+    end
+
+Object is searched first, so a user defined ExactMatch would take precedence over the MundaneSearch::Filters one.
+
 ## Supporting multiple collection types
 
 MundaneSearch can work with any collection object that can be passed around and modified. Filters can be designed to work with several types of collection.

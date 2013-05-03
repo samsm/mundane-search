@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 module MundaneSearch
   class Builder
     include MundaneSearch::Filters::Shortcuts
@@ -8,6 +10,7 @@ module MundaneSearch
     end
 
     def use(filter, *args, &block)
+      filter = convert_filter(filter)
       @filter_canisters << build_filter_canister.call(filter, *args, &block)
     end
 
@@ -30,6 +33,23 @@ module MundaneSearch
 
     def build_filter_canister
       FilterCanister.public_method(:new)
+    end
+
+    def convert_filter(filter)
+      case filter
+      when Class
+        filter
+      when String, Symbol
+        camelized = "#{filter}".camelize
+        [Object, MundaneSearch::Filters].each do |filter_base|
+          if filter_base.const_defined?(camelized)
+            break(filter_base.const_get(camelized))
+          end
+        end
+      else
+        # Warning: May not be a valid filter
+        filter
+      end
     end
   end
 end

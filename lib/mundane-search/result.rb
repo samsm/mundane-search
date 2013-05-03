@@ -5,10 +5,8 @@ module MundaneSearch
     include Buildable
     include Enumerable
 
-    class << self
-      def options
-        @options ||= {}
-      end
+    def self.options
+      @options ||= {}
     end
 
     attr_reader :stack

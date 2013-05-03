@@ -15,4 +15,21 @@ describe MundaneSearch::Builder do
     built.use MundaneSearch::Filters::ExactMatch, param_key: "foo"
     built.call(collection, params).must_equal(['bar'])
   end
+
+  it "should translate symbols into MundaneSearch::Filter class (if available)" do
+    built.use :exact_match, param_key: "foo"
+    built.call(collection, params).must_equal(['bar'])
+  end
+
+  it "should translate strings into MundaneSearch::Filter class (if available)" do
+    built.use "exact_match", param_key: "foo"
+    built.call(collection, params).must_equal(['bar'])
+  end
+
+  it "should looks for Object:: level filters when translating strings" do
+    Object.const_set :MockFilter, Class.new(MundaneSearch::Filters::ExactMatch)
+    built.use :mock_filter, param_key: "foo"
+    built.call(collection, params).must_equal(['bar'])
+    Object.send(:remove_const, :MockFilter)
+  end
 end

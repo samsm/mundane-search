@@ -53,6 +53,10 @@ describe MundaneSearch::Filters::Typical do
     it "should return param value matching param_key" do
       typical(param_key: "foo").match_value.must_equal "bar"
     end
+
+    it "should use explicit match value when supplied" do
+      typical(match_value: "foo").match_value.must_equal "foo"
+    end
   end
 
   describe "#param_key_type" do

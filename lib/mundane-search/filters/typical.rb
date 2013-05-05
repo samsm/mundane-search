@@ -21,11 +21,12 @@ module MundaneSearch::Filters
     end
 
     def match_value
-      params[param_key]
+      options[:match_value] || params[param_key]
     end
 
+    # This is a duplicate of the class method?
     def param_key_type
-      options[:type] || :string
+      options[:type] || self.class.param_key_type
     end
   end
 end

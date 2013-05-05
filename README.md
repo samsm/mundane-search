@@ -12,9 +12,7 @@ You know the deal:
 
 ## Usage
 
-Still in the process of figuring this out! But much of it works like I want, so hopefully no brutal changes.
-
-### Typical use
+*Still in the process of figuring this out! But much of it works like I want, so hopefully no brutal changes.*
 
 Build a search, then run that search on a specific collection and params.
 
@@ -30,24 +28,119 @@ Create a search:
 Add filters to it:
 
     class BookSearch < MundaneSearch::Result
-      use MundaneSearch::Filters::AttributeMatch, param_key: "title"
+      use :attribute_match, param_key: "title"
     end
 
 Then use that search in your controllers:
 
-    # params = { "title" => "A Tale of Two Cities" }
-    @result = BookSearch.results_for(Book.scoped, params)
+    # params = { "book_search" => { "title" => "A Tale of Two Cities" } }
+    @result = BookSearch.results_for(Book.scoped, params["book_search"])
 
 The returned result is enumerable:
 
     @result.each {|book| ... }
     @result.first
 
-And has some Rails form compatibility:
+And has some Rails-style form compatibility:
 
     <%= search_form_for(@result) do |f| %>
       <%= f.input :title %>
     <% end %>
+
+## Filters
+
+There are built in filters and you can make your own filters.
+
+Three ways to notate filters:
+
+    class ExampleSearch < MundaneSearch::Result
+      use FilterClass
+      use :filter_class
+      employ :shortcut
+    end
+
+1.  use FilterClass, options
+    The most straightforward. Under the hood, this establishes that a searched collection will be
+    passed through this filter.
+2.  use :filter_class, options
+    This is the same as specifying FilterClass, except MundaneSearch will look for filter_class
+    in MundaneSearch::Filters if it isn't found in the Object namespace.
+3.  employ :shortcut, options
+    This is the avenue for shortcuts, such as when you might want several filters to be created
+    by one designation.
+    I haven't spent much thought on this, it may change in the future.
+
+
+## Built in filters
+
+### Common options
+
+First some options that are common to many filters.
+
+* param_key: The key in params to examine for a matching value.
+* target: The attribute to match against. By default, uses param_key.
+* match_value: Usually nil. When nil, the value of params[param_key] is used.
+* required: Default false. When true, will run a filter even if (for example) the match_value is nil.
+* type: Gives form helpers et al a hint as to what type the match_value should be. Overrides class method param_key_type in a filter.
+  Available types:
+  1. :string
+  2. :integer
+  3. :float
+  4. :date
+  5. :time
+
+All those suckers in action:
+
+    class BookSearch < MundaneSearch::Result
+      # book.publisher == params["publisher"] even if the match_value (params["publisher"]) is nil
+      # (in below examples, the filter is skipped if the match_value is nil)
+      use :attribute_match, param_key: "publisher", required: true
+
+      # book.title == params["title"]
+      use :attribute_match, param_key: "title"
+
+      # book.author == params["writer"]
+      use :attribute_match, param_key: "writer", target: "author"
+
+      # book.publication_date > Date.parse("1900-01-01") (disregards params)
+      use :operator, param_key: "publication_date", operator: :>, match_value: Date.parse("1900-01-01")
+
+      # simple_form displays filter as designated type
+      use :attribute_match, param_key: "first_purchased_at", type: :time
+    end
+
+### AttributeMatch
+
+Returns objects that exactly match an attribute, ex: book.title == "A Tale of Two Cities"
+
+    use :attribute_match, param_key: "title"
+
+### AttributeSubstring
+
+Returns objects that match a portion of an attribute, ex: book.title =~ /Tale of/
+
+    use :attribute_substring, param_key: title
+
+### Operator
+
+Returns objects that match an attribute + operator, ex: book.publication_date > Date.parse("1900-01-01")
+
+Requires a param_key and a symbol of an operator (:>, :<, :>=, :<=)
+
+    use :operator, param_key: "publication_date", operator: :>
+
+
+#### ExactMatch
+
+MundaneSearch can also work with objects that aren't "attribute-y".
+
+Return objects that are equal to the match_value. Used in a lot of examples below.
+
+### BlankParamsAreNil
+
+The params can be manipulated.
+
+Changes values of "", [], or {} to nil in params.
 
 ## Sans sugar
 

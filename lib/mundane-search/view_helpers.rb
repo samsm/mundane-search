@@ -1,5 +1,11 @@
 module MundaneSearch
   module ViewHelpers
+    def search_url_for(search, change_params = {})
+      search_model = search.to_model
+      new_parms = search_model.params.merge(change_params).reject {|k,v| v.nil? }
+      polymorphic_url search_model, new_parms
+    end
+
     def search_form_for(record, options = {}, &block)
       # Later!
       # if block_given?

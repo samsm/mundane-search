@@ -47,6 +47,10 @@ And has some Rails-style form compatibility:
       <%= f.input :title %>
     <% end %>
 
+As well as url-ability:
+
+    search_url_for(@result)
+
 ## Filters
 
 There are built in filters and you can make your own filters.

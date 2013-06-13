@@ -22,6 +22,12 @@ module MundaneSearch
       end
     end
 
+    # Added this for the benefit of search_url_for
+    # If it stays, it should replace stack.params in the method above.
+    def params
+      send(:result).stack.params
+    end
+
     def self.model_name
       name = 'GenericSearch' unless self.name
       namespace = nil

@@ -129,6 +129,12 @@ Requires a param_key and a symbol of an operator (:>, :<, :>=, :<=)
 
     use :operator, param_key: "publication_date", operator: :>
 
+### Order
+
+Sorts a collection.
+
+    use :order, param_key: "sort", direction: "asc"
+
 
 #### ExactMatch
 

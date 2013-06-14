@@ -47,6 +47,10 @@ And has some Rails-style form compatibility:
       <%= f.input :title %>
     <% end %>
 
+As well as url-ability:
+
+    search_url_for(@result)
+
 ## Filters
 
 There are built in filters and you can make your own filters.
@@ -128,6 +132,12 @@ Returns objects that match an attribute + operator, ex: book.publication_date > 
 Requires a param_key and a symbol of an operator (:>, :<, :>=, :<=)
 
     use :operator, param_key: "publication_date", operator: :>
+
+### Order
+
+Sorts a collection.
+
+    use :order, param_key: "sort", direction: "asc"
 
 
 #### ExactMatch

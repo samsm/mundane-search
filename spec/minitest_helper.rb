@@ -70,6 +70,20 @@ def params
   { 'foo' => 'bar' }
 end
 
+def requirements_for_search_url_for_tests!
+  require 'action_dispatch/routing/polymorphic_routes'
+  def view_with_url_class
+    Class.new do
+      include ActionDispatch::Routing::PolymorphicRoutes
+      %w(generic_search_url).each do  |path|
+        define_method path do |a=nil,b=nil|
+          "/#{path}"
+        end
+      end
+    end
+  end
+end
+
 def requirements_for_form_for_tests!
   require_relative 'demo_data'
   require 'active_support/concern'

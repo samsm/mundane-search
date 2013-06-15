@@ -17,4 +17,19 @@ describe "integration search_url_for" do
     form = search_url_view.search_url_for(result_model) { }
     form.must_match %r{\A/}
   end
+
+  it "should generate link" do
+    form = search_url_view.search_link_for("anchor", result_model) { }
+    form.must_match %r{\A<a}
+  end
+
+  it "should add class 'unchanged-search' when search object isn't changed" do
+    form = search_url_view.search_link_for("anchor", result_model) { }
+    form.must_match %r{class="unchanged-search"}
+  end
+
+  it "should not class 'unchanged-search' when search object isn't changed" do
+    form = search_url_view.search_link_for("anchor", result_model, {"foo" => "something else"}) { }
+    form.wont_match %r{class="unchanged-search"}
+  end
 end

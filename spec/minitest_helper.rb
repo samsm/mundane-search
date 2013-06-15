@@ -71,10 +71,17 @@ def params
 end
 
 def requirements_for_search_url_for_tests!
+  require_relative 'demo_data'
+  %w(capture url sanitize text form).each do |name|
+    require "action_view/helpers/#{name}_helper"
+  end
   require 'action_dispatch/routing/polymorphic_routes'
+  require 'action_view/helpers/url_helper'
+
   def view_with_url_class
     Class.new do
       include ActionDispatch::Routing::PolymorphicRoutes
+      include ActionView::Helpers::UrlHelper
       %w(generic_search_url).each do  |path|
         define_method path do |a=nil,b=nil|
           "/#{path}"

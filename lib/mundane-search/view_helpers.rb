@@ -8,13 +8,14 @@ module MundaneSearch
       polymorphic_url search_model, new_params
     end
 
-    def search_link(content, search, change_params = {})
+    def search_link_for(content, search, change_params = {})
       search_model = search.to_model
       link_to content,
               search_url_for(search, change_params),
-              class: will_merge_change_hash?(search_model.params, change_params) ? nil : "current-search"
+              class: will_merge_change_hash?(search_model.params, change_params) ? nil : "unchanged-search"
     end
 
+    # should this be private?
     def will_merge_change_hash?(a,b)
       !(a.merge(b) == a)
     end

@@ -4,8 +4,9 @@ require 'ostruct'
 describe MundaneSearch::ResultModel do
   let(:builder) do
     builder, filter_canister = Object.new, Object.new
-    def filter_canister.param_key      ; "foo" ; end
-    def filter_canister.param_key_type ; :date ; end
+    def filter_canister.option_keys_with_types
+      [["foo",:date]]
+    end
     builder.define_singleton_method :filter_canisters, -> { [filter_canister] }
     builder
   end

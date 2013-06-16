@@ -1,7 +1,12 @@
 module MundaneSearch::Filters
   class Typical < Base
+    def self.param_key_types
+      { param_key: param_key_type }
+    end
+
     def self.param_key_type
-      :string # common default
+      # common default
+      :string
     end
 
     def target
@@ -24,7 +29,6 @@ module MundaneSearch::Filters
       options[:match_value] || params[param_key]
     end
 
-    # This is a duplicate of the class method?
     def param_key_type
       options[:type] || self.class.param_key_type
     end

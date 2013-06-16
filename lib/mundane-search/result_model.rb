@@ -12,10 +12,10 @@ module MundaneSearch
       Class.new(ResultModel) do |model_class|
         model_class.model_name = result_class.options[:name] || result_class.name
         builder.filter_canisters.each do |fc|
-          if fc.param_key
-            attribute_column(fc.param_key, fc.param_key_type)
-            define_method(fc.param_key) do
-              send(:result).stack.params[fc.param_key.to_s]
+          fc.option_keys_with_types.each do |key, type|
+            attribute_column(key, type)
+            define_method(key) do
+              send(:result).stack.params[key.to_s]
             end
           end
         end

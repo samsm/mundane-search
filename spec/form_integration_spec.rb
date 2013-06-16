@@ -19,7 +19,7 @@ describe "integration with Rails forms" do
     end
 
     it "should extract values from param_key for text_field accessors" do
-      result_class.builder.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
+      result_class.builder.use MundaneSearch::Filters::AttributeMatch, key: 'title'
       form = formed.form_for(result_model) do |f|
         f.text_field :title
       end

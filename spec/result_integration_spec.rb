@@ -3,7 +3,7 @@ require_relative 'minitest_helper'
 describe MundaneSearch::Result do
   let(:result_class) do
     Class.new(MundaneSearch::Result) do
-      use MundaneSearch::Filters::ExactMatch, param_key: "foo"
+      use MundaneSearch::Filters::ExactMatch, key: "foo"
     end
   end
 

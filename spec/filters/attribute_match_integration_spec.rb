@@ -10,9 +10,9 @@ describe MundaneSearch::Filters::AttributeMatch do
   let(:all_books) { Book.scoped }
   let(:a_tale_of_two_cities) { Book.first }
 
-  it "should match based on param_key" do
+  it "should match based on key" do
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::AttributeMatch, param_key: "author"
+      use MundaneSearch::Filters::AttributeMatch, key: "author"
     end
 
     built.call(all_books, {"author" => "Charles Dickens"}).must_equal([a_tale_of_two_cities])

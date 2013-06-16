@@ -1,16 +1,16 @@
 module MundaneSearch::Filters
   class Typical < Base
-    def self.param_key_types
-      { param_key: param_key_type }
+    def self.key_types
+      { key: key_type }
     end
 
-    def self.param_key_type
+    def self.key_type
       # common default
       :string
     end
 
     def target
-      options[:target] || param_key
+      options[:target] || key
     end
 
     def optional?
@@ -21,16 +21,16 @@ module MundaneSearch::Filters
       match_value || optional?
     end
 
-    def param_key
-      options.fetch(:param_key)
+    def key
+      options.fetch(:key)
     end
 
     def match_value
-      options[:match_value] || params[param_key]
+      options[:match_value] || params[key]
     end
 
-    def param_key_type
-      options[:type] || self.class.param_key_type
+    def key_type
+      options[:type] || self.class.key_type
     end
   end
 end

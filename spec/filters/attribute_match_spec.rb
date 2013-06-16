@@ -6,7 +6,7 @@ describe MundaneSearch::Filters::AttributeMatch do
   let(:a_tale) { books.first }
   it "should match param key" do
     am = MundaneSearch::Filters::AttributeMatch
-    filter = am.new(books, {'title' => "A Tale of Two Cities"}, {param_key: 'title'})
+    filter = am.new(books, {'title' => "A Tale of Two Cities"}, { key: 'title' })
 
     filter.filtered_collection.must_equal([a_tale])
   end
@@ -18,7 +18,7 @@ describe MundaneSearch::Filters::AttributeMatch do
       params = { 'title' => "A Tale of Two Cities" }
       result = Object.new
 
-      filter = am.new(collection, params, param_key: 'title')
+      filter = am.new(collection, params, key: 'title')
       collection.expect(:where, result, [params])
       filter.filtered_collection.must_equal(result)
       collection.verify

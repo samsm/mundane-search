@@ -8,7 +8,7 @@ describe MundaneSearch::Filters::Shortcuts do
 
   it "should match based on param_key" do
     built = MundaneSearch::Builder.new do
-      employ :attribute_filter, param_key: 'title'
+      employ :attribute_filter, key: 'title'
     end
 
     built.call(all_books, {"title" => "A Tale of Two Cities"}).must_equal([a_tale_of_two_cities])

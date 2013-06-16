@@ -14,4 +14,5 @@ module MundaneSearch
   autoload :Buildable, "mundane-search/buildable"
   autoload :Railtie, "mundane-search/railtie"
   autoload :ViewHelpers, "mundane-search/view_helpers"
+  autoload :ParamKeyTypes, "mundane-search/param_key_types"
 end

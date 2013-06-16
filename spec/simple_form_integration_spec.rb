@@ -24,7 +24,7 @@ describe "intgration with simple_form" do
   end
 
   it "should determine input" do
-    result_class.builder.use MundaneSearch::Filters::AttributeMatch, param_key: 'title'
+    result_class.builder.use MundaneSearch::Filters::AttributeMatch, key: 'title'
     form = formed.simple_form_for(result_model) do |f|
       f.input :title
     end

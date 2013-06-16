@@ -7,14 +7,14 @@ describe MundaneSearch::Filters::ExactMatch do
   let(:params)     { { 'foo' => 'bar' } }
 
   it "should only take effect if matching param is avilable" do
-    options = { param_key: 'unmatched' }
+    options = { key: 'unmatched' }
     em = ExactMatch.new(collection, params, options)
     coll, parms = em.call
     coll.must_equal(collection)
   end
 
   it "should match equivalent element" do
-    options = { param_key: 'foo' }
+    options = { key: 'foo' }
     em = ExactMatch.new(collection, params, options)
     coll, parms = em.call
     coll.must_equal(['bar'])

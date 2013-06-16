@@ -1,7 +1,6 @@
 require_relative '../minitest_helper'
 
 describe MundaneSearch::Filters::Typical do
-  # let(:typical) { MundaneSearch::Filters::Typical.new(collection, params) }
   let(:standin) { Object.new }
   def typical(options = {})
     MundaneSearch::Filters::Typical.new(collection, params, options)
@@ -13,7 +12,7 @@ describe MundaneSearch::Filters::Typical do
     end
 
     it "should default to param_key" do
-      typical(param_key: "foo").target.must_equal "foo"
+      typical(key: "foo").target.must_equal "foo"
     end
   end
 
@@ -44,14 +43,14 @@ describe MundaneSearch::Filters::Typical do
 
   describe "#param_key" do
     it "should take param_key from options" do
-      param_key = Object.new
-      typical(param_key: param_key).param_key.must_equal param_key
+      key = Object.new
+      typical(key: key).key.must_equal key
     end
   end
 
   describe "#match_value" do
     it "should return param value matching param_key" do
-      typical(param_key: "foo").match_value.must_equal "bar"
+      typical(key: "foo").match_value.must_equal "bar"
     end
 
     it "should use explicit match value when supplied" do
@@ -61,12 +60,12 @@ describe MundaneSearch::Filters::Typical do
 
   describe "#param_key_type" do
     it "should default to :string" do
-      typical.param_key_type.must_equal :string
+      typical.key_type.must_equal :string
     end
 
     it "should use options[:type]" do
       type = Object.new
-      typical(type: type).param_key_type.must_equal type
+      typical(type: type).key_type.must_equal type
     end
   end
 end

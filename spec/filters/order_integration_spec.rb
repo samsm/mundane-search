@@ -12,7 +12,7 @@ describe MundaneSearch::Filters::Order do
 
   it "should match based on param_key" do
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::Order, param_key: "sort"
+      use MundaneSearch::Filters::Order, key: "sort"
     end
 
     dates = built.call(all_books, {"sort" => "publication_date"})

@@ -10,9 +10,9 @@ describe MundaneSearch::Filters::Operator do
   let(:all_books) { Book.scoped }
   let(:a_tale_of_two_cities) { Book.first }
 
-  it "should match based on param_key" do
+  it "should match based on key" do
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::Operator, { param_key: 'sold', operator: :> }
+      use MundaneSearch::Filters::Operator, { key: 'sold', operator: :> }
     end
 
     built.call(all_books, {"sold" => 199_999_999}).must_equal([a_tale_of_two_cities])

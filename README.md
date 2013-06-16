@@ -28,7 +28,7 @@ Create a search:
 Add filters to it:
 
     class BookSearch < MundaneSearch::Result
-      use :attribute_match, param_key: "title"
+      use :attribute_match, key: "title"
     end
 
 Then use that search in your controllers:
@@ -81,11 +81,11 @@ Three ways to notate filters:
 
 First some options that are common to many filters.
 
-* param_key: The key in params to examine for a matching value.
-* target: The attribute to match against. By default, uses param_key.
-* match_value: Usually nil. When nil, the value of params[param_key] is used.
+* key: The key in params to examine for a matching value.
+* target: The attribute to match against. By default, uses key.
+* match_value: Usually nil. When nil, the value of params[key] is used.
 * required: Default false. When true, will run a filter even if (for example) the match_value is nil.
-* type: Gives form helpers et al a hint as to what type the match_value should be. Overrides class method param_key_type in a filter.
+* type: Gives form helpers et al a hint as to what type the match_value should be. Overrides class method key_type in a filter.
   Available types:
   1. :string
   2. :integer
@@ -98,47 +98,46 @@ All those suckers in action:
     class BookSearch < MundaneSearch::Result
       # book.publisher == params["publisher"] even if the match_value (params["publisher"]) is nil
       # (in below examples, the filter is skipped if the match_value is nil)
-      use :attribute_match, param_key: "publisher", required: true
+      use :attribute_match, key: "publisher", required: true
 
       # book.title == params["title"]
-      use :attribute_match, param_key: "title"
+      use :attribute_match, key: "title"
 
       # book.author == params["writer"]
-      use :attribute_match, param_key: "writer", target: "author"
+      use :attribute_match, key: "writer", target: "author"
 
       # book.publication_date > Date.parse("1900-01-01") (disregards params)
-      use :operator, param_key: "publication_date", operator: :>, match_value: Date.parse("1900-01-01")
+      use :operator, key: "publication_date", operator: :>, match_value: Date.parse("1900-01-01")
 
       # simple_form displays filter as designated type
-      use :attribute_match, param_key: "first_purchased_at", type: :time
+      use :attribute_match, key: "first_purchased_at", type: :time
     end
 
 ### AttributeMatch
 
 Returns objects that exactly match an attribute, ex: book.title == "A Tale of Two Cities"
 
-    use :attribute_match, param_key: "title"
+    use :attribute_match, key: "title"
 
 ### AttributeSubstring
 
 Returns objects that match a portion of an attribute, ex: book.title =~ /Tale of/
 
-    use :attribute_substring, param_key: title
+    use :attribute_substring, key: title
 
 ### Operator
 
 Returns objects that match an attribute + operator, ex: book.publication_date > Date.parse("1900-01-01")
 
-Requires a param_key and a symbol of an operator (:>, :<, :>=, :<=)
+Requires a key and a symbol of an operator (:>, :<, :>=, :<=)
 
-    use :operator, param_key: "publication_date", operator: :>
+    use :operator, key: "publication_date", operator: :>
 
 ### Order
 
 Sorts a collection.
 
-    use :order, param_key: "sort", direction: "asc"
-
+    use :order, key: "sort", direction: "asc"
 
 #### ExactMatch
 
@@ -157,7 +156,7 @@ Changes values of "", [], or {} to nil in params.
 MundaneSearch can be used outside of Rails on whatever sort of object you want:
 
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::ExactMatch, param_key: "fruit"
+      use MundaneSearch::Filters::ExactMatch, key: "fruit"
     end
     built.call %w(apple orange blueberry), { 'fruit' => 'orange' } # ["orange"]
 
@@ -210,21 +209,21 @@ This is another filter that would be more useful if instead of being hard-wired 
 A supplied filter: ExactMatch, does just this.
 
 built = MundaneSearch::Builder.new do
-  use MundaneSearch::Filters::ExactMatch, param_key: "title"
+  use MundaneSearch::Filters::ExactMatch, key: "title"
 end
 built.call %w(Private Sergeant Lieutenant), { "title" => "Sergeant" } # ["Sergeant"]
 
 It also ignores empty params:
 
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::ExactMatch, param_key: "title"
+      use MundaneSearch::Filters::ExactMatch, key: "title"
     end
     built.call %w(Private Sergeant Lieutenant), { "title" => nil } # ["Private", "Sergeant", "Lieutenant"]
 
 Unless you tell it not to (in the following case, the filter will look for an exact match on nil, and not find it):
 
     built = MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::ExactMatch, param_key: "title", required: true
+      use MundaneSearch::Filters::ExactMatch, key: "title", required: true
     end
     built.call %w(Private Sergeant Lieutenant), { "title" => nil } # []
 
@@ -232,12 +231,12 @@ You can alter params as well, in a similar fashion.
 
     class AlwaysSearchingForGumbo < MundaneSearch::Filters::Base
       def filtered_params
-        params.merge({ options[:param_key] => "Gumbo" })
+        params.merge({ options[:key] => "Gumbo" })
       end
     end
     built = MundaneSearch::Builder.new do
-      use AlwaysSearchingForGumbo, param_key: "food"
-      use MundaneSearch::Filters::ExactMatch, param_key: "food"
+      use AlwaysSearchingForGumbo, key: "food"
+      use MundaneSearch::Filters::ExactMatch, key: "food"
     end
     built.call %w(Pizza Pasta Antipasto Gumbo), { "food" => "Pizza" } # ["Gumbo"]
     built.call %w(Pizza Pasta Antipasto Gumbo) # ["Gumbo"]
@@ -246,8 +245,8 @@ So yeah, it's fun. Here's a more practical example ... if you have clients that 
 
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::BlankParamsAreNil
-      use MundaneSearch::Filters::ExactMatch, param_key: "food"
-      use MundaneSearch::Filters::ExactMatch, param_key: "noms"
+      use MundaneSearch::Filters::ExactMatch, key: "food"
+      use MundaneSearch::Filters::ExactMatch, key: "noms"
     end
     built.call %w(Pizza Pasta Antipasto Gumbo), { "food" => "", "noms" => "Gumbo" } # ["Gumbo"]
 
@@ -258,8 +257,8 @@ If a filter is defined directly under MundaneSearch::Filters or Object (such as 
 The following two "use" designations would use the same filter.
 
     MundaneSearch::Builder.new do
-      use MundaneSearch::Filters::ExactMatch, param_key: "foo"
-      use :exact_match, param_key: "foo"
+      use MundaneSearch::Filters::ExactMatch, key: "foo"
+      use :exact_match, key: "foo"
     end
 
 Object is searched first, so a user defined ExactMatch would take precedence over the MundaneSearch::Filters one.

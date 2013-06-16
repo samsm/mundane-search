@@ -7,7 +7,7 @@ describe MundaneSearch::Filters::Order do
   let(:order)  { MundaneSearch::Filters::Order }
   it "should order by title" do
     books.reverse!
-    filter = order.new(books, {'sort' => "title"}, {param_key: 'sort'})
+    filter = order.new(books, {'sort' => "title"}, {key: 'sort'})
 
     filter.filtered_collection.first.must_equal(a_tale)
   end
@@ -19,7 +19,7 @@ describe MundaneSearch::Filters::Order do
       params = { 'sort' => "title" }
       result = Object.new
 
-      filter = order.new(collection, params, param_key: 'sort')
+      filter = order.new(collection, params, key: 'sort')
       collection.expect(:order, result, ["title ASC"])
       filter.filtered_collection.must_equal(result)
       collection.verify

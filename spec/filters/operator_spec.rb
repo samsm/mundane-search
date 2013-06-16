@@ -7,7 +7,7 @@ describe MundaneSearch::Filters::Operator do
 
   it "should match param key" do
     o = MundaneSearch::Filters::Operator
-    filter = o.new(books, {'sold' => 199_999_999}, { param_key: 'sold', operator: :> })
+    filter = o.new(books, {'sold' => 199_999_999}, { key: 'sold', operator: :> })
 
     filter.filtered_collection.must_equal([a_tale])
   end
@@ -19,7 +19,7 @@ describe MundaneSearch::Filters::Operator do
       params = { 'sold' => 199_999_999 }
       result = Object.new
 
-      filter = o.new(collection, params, { param_key: 'sold', operator: :> })
+      filter = o.new(collection, params, { key: 'sold', operator: :> })
       collection.expect(:where, result, [["sold > ?", 199_999_999]])
       filter.filtered_collection.must_equal(result)
       collection.verify

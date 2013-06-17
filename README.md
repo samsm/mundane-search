@@ -145,8 +145,8 @@ Sorts a collection.
 Sorts a collection based on several fields.
 
     # Compact syntax:
-    use :multi_order, key: "sort", direction_key: "bearing"
-    # { "sort" => "sold;author:desc", "bearing" => "descending" }
+    use :multi_order, key: "sort"
+    # { "sort" => "sold;author:desc" }
 
     # Array syntax (better for forms, maybe?)
     use :multi_order, key: "sort", direction_key: "bearing"

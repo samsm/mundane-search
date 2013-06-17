@@ -11,8 +11,8 @@ module MundaneSearch::Filters
     end
 
     def filtered_collection
-      collection.sort_by(&:"#{match_value}")
-      backwards? ? collection.reverse : collection
+      sorted = collection.sort_by(&:"#{match_value}")
+      backwards? ? sorted.reverse : sorted
     end
 
     protected
@@ -21,7 +21,11 @@ module MundaneSearch::Filters
     end
 
     def direction
-      params["direction"] || options[:direction]
+      options[:direction] || params[direction_key]
+    end
+
+    def direction_key
+      options[:direction_key] || "direction"
     end
 
     def ascending_terms

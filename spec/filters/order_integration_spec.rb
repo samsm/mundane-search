@@ -21,4 +21,16 @@ describe MundaneSearch::Filters::Order do
       current
     end
   end
+
+  it "should sort desc if desired" do
+    built = MundaneSearch::Builder.new do
+      use MundaneSearch::Filters::Order, key: "sort", direction_key: "bearing"
+    end
+
+    dates = built.call(all_books, {"sort" => "publication_date", "bearing" => "desc"})
+    dates.inject do |last, current|
+      last.publication_date.must_be :>, current.publication_date if last
+      current
+    end
+  end
 end

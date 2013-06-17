@@ -137,7 +137,8 @@ Requires a key and a symbol of an operator (:>, :<, :>=, :<=)
 
 Sorts a collection.
 
-    use :order, key: "sort", direction: "asc"
+    use :order, key: "sort", direction_key: "bearing"
+    # { "sort" => "publication_date", "bearing" => "descending" }
 
 #### ExactMatch
 

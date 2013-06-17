@@ -5,6 +5,7 @@ module MundaneSearch::Filters
         collection.order("#{match_value} #{active_record_direction}")
       end
 
+      private
       def active_record_direction
         direction || "ASC"
       end
@@ -28,6 +29,7 @@ module MundaneSearch::Filters
       options[:direction_key] || "direction"
     end
 
+    # These are duplicated in MultiOrder
     def ascending_terms
       %w(asc ascending <)
     end

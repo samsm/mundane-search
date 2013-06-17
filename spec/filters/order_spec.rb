@@ -35,7 +35,7 @@ describe MundaneSearch::Filters::Order do
 
   describe MundaneSearch::Filters::Order::ActiveRecord do
     let(:order) { MundaneSearch::Filters::Order::ActiveRecord }
-    it "should filter with 'where'" do
+    it "should filter with 'order'" do
       collection = Minitest::Mock.new
       params = { 'sort' => "title" }
       result = Object.new

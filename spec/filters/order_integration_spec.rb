@@ -10,7 +10,7 @@ describe MundaneSearch::Filters::Order do
   let(:all_books) { Book.scoped }
   let(:a_tale_of_two_cities) { Book.first }
 
-  it "should match based on param_key" do
+  it "should order based on key" do
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::Order, key: "sort"
     end
@@ -22,7 +22,7 @@ describe MundaneSearch::Filters::Order do
     end
   end
 
-  it "should sort desc if desired" do
+  it "should order desc if desired" do
     built = MundaneSearch::Builder.new do
       use MundaneSearch::Filters::Order, key: "sort", direction_key: "bearing"
     end

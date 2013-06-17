@@ -140,7 +140,19 @@ Sorts a collection.
     use :order, key: "sort", direction_key: "bearing"
     # { "sort" => "publication_date", "bearing" => "descending" }
 
-#### ExactMatch
+### MultiOrder
+
+Sorts a collection based on several fields.
+
+    # Compact syntax:
+    use :multi_order, key: "sort", direction_key: "bearing"
+    # { "sort" => "sold;author:desc", "bearing" => "descending" }
+
+    # Array syntax (better for forms, maybe?)
+    use :multi_order, key: "sort", direction_key: "bearing"
+    # {"sort" => ["sold","author"], "bearing" => ["asc", "desc"]},
+
+### ExactMatch
 
 MundaneSearch can also work with objects that aren't "attribute-y".
 

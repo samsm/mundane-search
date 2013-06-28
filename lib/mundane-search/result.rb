@@ -1,5 +1,3 @@
-require 'active_model/naming'
-
 module MundaneSearch
   class Result
     include Buildable

@@ -38,7 +38,7 @@ describe MundaneSearch::Filters::MultiOrder do
       result = Object.new
 
       filter = order.new(collection, params, key: 'sort')
-      collection.expect(:order, result, ["sold asc author desc"])
+      collection.expect(:order, result, ["sold asc, author desc"])
       filter.filtered_collection.must_equal(result)
       collection.verify
     end

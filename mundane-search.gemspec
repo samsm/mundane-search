@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "activemodel"
+  gem.add_dependency "attribute_column"
 
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "mocha"

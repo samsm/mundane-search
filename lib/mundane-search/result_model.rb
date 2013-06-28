@@ -1,10 +1,11 @@
 require 'active_model/validations'
 require 'active_model/naming'
 require 'active_model/translation'
+require 'attribute_column'
 
 module MundaneSearch
   class ResultModel
-    include ColumnsHash
+    include AttributeColumn
     include ActiveModel::Validations
 
     def self.model_class_for(result_class)

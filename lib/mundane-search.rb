@@ -1,4 +1,4 @@
-require "columns_hash"
+require "attribute_column"
 
 require 'mundane-search/railtie' if defined?(Rails)
 

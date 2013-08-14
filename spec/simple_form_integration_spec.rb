@@ -28,9 +28,7 @@ describe "intgration with simple_form" do
     form = formed.simple_form_for(result_model) do |f|
       f.input :title
     end
-    form.must_match %{<input class="string optional" id="#{search_prefix}_title"
-                             name="#{search_prefix}[title]"
-                             size="50" type="text" />}.gsub(/\s+/,' ')
+    match_tag = form.match(%{<input[^>]*id="#{search_prefix}_title"[^>]*/>})
+    match_tag[0].must_match %{name="#{search_prefix}[title]"}
   end
 end
-

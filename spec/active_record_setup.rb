@@ -9,7 +9,8 @@ ActiveRecord::Base.establish_connection(
 )
 
 require 'database_cleaner'
-DatabaseCleaner.strategy = :truncation
+# Changed from :truncation due to https://github.com/bmabey/database_cleaner/pull/209
+DatabaseCleaner.strategy = :deletion
 
 class Book < ActiveRecord::Base
   # t.string    :title

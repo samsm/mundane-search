@@ -1,6 +1,6 @@
 # MundaneSearch
 
-MundaneSearch aims to compartmentalize multi-step search.
+MundaneSearch aims to compartmentalize multi-step search. [![Code Climate](https://codeclimate.com/github/samsm/mundane-search.png)](https://codeclimate.com/github/samsm/mundane-search)
 
 ## Installation
 

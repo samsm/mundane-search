@@ -6,7 +6,6 @@ $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/mock'
-require 'minitest/unit'
 require 'mocha/setup'
 
 require 'mundane-search'
@@ -40,7 +39,7 @@ end
 Minitest.backtrace_filter = AgressiveBacktraceFilter.new
 
 # fail_fast hack
-module MiniTest
+module Minitest
   class Unit
     def puke_with_immediate_feedback(klass, meth, e)
       # Workaround for minitest weirdness: When puke gets called *again* after

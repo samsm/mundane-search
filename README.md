@@ -1,6 +1,8 @@
 # MundaneSearch
 
-MundaneSearch aims to compartmentalize multi-step search. [![Code Climate](https://codeclimate.com/github/samsm/mundane-search.png)](https://codeclimate.com/github/samsm/mundane-search)
+[![Gem Version](https://badge.fury.io/rb/mundane-search.png)](http://badge.fury.io/rb/mundane-search) [![Code Climate](https://codeclimate.com/github/samsm/mundane-search.png)](https://codeclimate.com/github/samsm/mundane-search)
+
+MundaneSearch aims to compartmentalize multi-step search.
 
 ## Installation
 

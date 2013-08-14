@@ -8,6 +8,9 @@ require 'minitest/spec'
 require 'minitest/mock'
 require 'mocha/setup'
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'mundane-search'
 require 'pry' rescue nil
 

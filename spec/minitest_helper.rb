@@ -1,15 +1,20 @@
 require 'rubygems'
 gem 'minitest' # ensures we're using the gem, and not the built in MT
 
+require 'coveralls'
+require 'simplecov'
+SimpleCov.start do
+  coverage_dir 'tmp/coverage'
+  add_filter   'spec'
+end
+Coveralls.wear!
+
 $:.unshift File.dirname(__FILE__) + "/../lib"
 
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/mock'
 require 'mocha/setup'
-
-require 'coveralls'
-Coveralls.wear!
 
 require 'mundane-search'
 require 'pry' rescue nil

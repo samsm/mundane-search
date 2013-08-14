@@ -20,6 +20,13 @@ namespace 'test' do
     t.test_files = integration_test_files
     t.verbose = false
   end
+
+  desc "Run all tests"
+  Rake::TestTask.new('all') do |t|
+    t.libs.push "lib"
+    t.test_files = test_files
+    t.verbose = false
+  end
 end
 
 namespace 'database' do
@@ -38,5 +45,5 @@ end
 
 #Rake::Task['test'].clear
 desc "Run all tests"
-task 'test' => %w[test:integration test:unit]
+task 'test' => %w[test:all]
 task 'default' => 'test'

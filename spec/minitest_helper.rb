@@ -6,7 +6,8 @@ $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/mock'
-require "mocha/setup"
+require 'minitest/unit'
+require 'mocha/setup'
 
 require 'mundane-search'
 require 'pry' rescue nil

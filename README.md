@@ -223,10 +223,10 @@ Filters will often be configured to consider input on a specific search. So, you
 This is another filter that would be more useful if instead of being hard-wired to look at params[:name], it could be configured when it is used.
 A supplied filter: ExactMatch, does just this.
 
-built = MundaneSearch::Builder.new do
-  use MundaneSearch::Filters::ExactMatch, key: "title"
-end
-built.call %w(Private Sergeant Lieutenant), { "title" => "Sergeant" } # ["Sergeant"]
+    built = MundaneSearch::Builder.new do
+      use MundaneSearch::Filters::ExactMatch, key: "title"
+    end
+    built.call %w(Private Sergeant Lieutenant), { "title" => "Sergeant" } # ["Sergeant"]
 
 It also ignores empty params:
 

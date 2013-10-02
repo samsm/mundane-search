@@ -7,7 +7,7 @@ describe MundaneSearch::Filters::Order do
     populate_books!
   end
 
-  let(:all_books) { Book.scoped }
+  let(:all_books) { scoped_search_for_active_record_model(Book) }
   let(:a_tale_of_two_cities) { Book.first }
 
   it "should order based on key" do

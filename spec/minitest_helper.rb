@@ -3,6 +3,7 @@ gem 'minitest' # ensures we're using the gem, and not the built in MT
 
 require 'coveralls'
 require 'simplecov'
+
 SimpleCov.start do
   coverage_dir 'tmp/coverage'
   add_filter   'spec'
@@ -17,7 +18,7 @@ require 'minitest/mock'
 require 'mocha/setup'
 
 require 'mundane-search'
-require 'pry' rescue nil
+require 'pry-debugger' rescue nil
 
 class AgressiveBacktraceFilter < Minitest::BacktraceFilter
   def gem_paths
@@ -65,7 +66,10 @@ module Minitest
       end
       result
     end
-    alias_method_chain :puke, :immediate_feedback
+    # alias_method_chain :puke, :immediate_feedback
+    alias_method :puke_without_immediate_feedback, :puke
+    alias_method :puke, :puke_with_immediate_feedback
+    
   end
 end
 
@@ -111,11 +115,16 @@ def requirements_for_form_for_tests!
     Class.new do
       include ActionView::Helpers::FormHelper
       include ActionController::RecordIdentifier
+      include ActionView::RecordIdentifier
 
       %w(generic_search_path).each do  |path|
         define_method path do |a=nil,b=nil|
           "/#{path}"
         end
+      end
+      
+      def polymorphic_path(*args)
+        generic_search_path(*args)
       end
 
       attr_accessor :output_buffer

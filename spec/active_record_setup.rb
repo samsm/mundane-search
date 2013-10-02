@@ -36,3 +36,13 @@ rescue ActiveRecord::StatementInvalid
   puts "*****************************************************************"
   puts ''
 end
+
+def scoped_search_for_active_record_model(model)
+  scope_with_all_records = case ActiveRecord::VERSION::MAJOR
+  when 4
+    :all
+  else
+    :scoped
+  end
+  model.send(scope_with_all_records)
+end

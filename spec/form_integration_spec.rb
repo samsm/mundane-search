@@ -23,7 +23,7 @@ describe "integration with Rails forms" do
       form = formed.form_for(result_model) do |f|
         f.text_field :title
       end
-      form.must_match %{<input id="#{search_prefix}_title" name="#{search_prefix}[title]" size="30" type="text" />}
+      form.must_match %{<input id="#{search_prefix}_title" name="#{search_prefix}[title]"}
     end
   end
 end

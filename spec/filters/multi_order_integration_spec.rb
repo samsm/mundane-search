@@ -7,7 +7,7 @@ describe MundaneSearch::Filters::MultiOrder do
     populate_books!
   end
 
-  let(:all_books) { Book.scoped }
+  let(:all_books) { scoped_search_for_active_record_model(Book) }
   let(:a_tale_of_two_cities) { Book.where(title: "A Tale of Two Cities").first }
 
   it "should order by two attributes (compact syntax)" do

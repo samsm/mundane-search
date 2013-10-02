@@ -4,6 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pry'
-
+gem "pry-debugger"
 gem 'simplecov', :require => false, :group => :test
 gem 'coveralls', :require => false, :group => :test

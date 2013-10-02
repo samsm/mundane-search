@@ -36,7 +36,7 @@ Add filters to it:
 Then use that search in your controllers:
 
     # params = { "book_search" => { "title" => "A Tale of Two Cities" } }
-    @result = BookSearch.results_for(Book.scoped, params["book_search"])
+    @result = BookSearch.results_for(Book.all, params["book_search"])
 
 The returned result is enumerable:
 

@@ -1,6 +1,6 @@
 # MundaneSearch
 
-[![Build Status](https://travis-ci.org/samsm/mundane-search.png?branch=master)](https://travis-ci.org/samsm/mundane-search)[![Gem Version](https://badge.fury.io/rb/mundane-search.png)](http://badge.fury.io/rb/mundane-search) [![Code Climate](https://codeclimate.com/github/samsm/mundane-search.png)](https://codeclimate.com/github/samsm/mundane-search) [![Coverage Status](https://coveralls.io/repos/samsm/mundane-search/badge.png?branch=master)](https://coveralls.io/r/samsm/mundane-search?branch=master) [![Dependency Status](https://gemnasium.com/samsm/mundane-search.png)](https://gemnasium.com/samsm/mundane-search)
+[![Build Status](https://travis-ci.org/samsm/mundane-search.png?branch=master)](https://travis-ci.org/samsm/mundane-search) [![Gem Version](https://badge.fury.io/rb/mundane-search.png)](http://badge.fury.io/rb/mundane-search) [![Code Climate](https://codeclimate.com/github/samsm/mundane-search.png)](https://codeclimate.com/github/samsm/mundane-search) [![Coverage Status](https://coveralls.io/repos/samsm/mundane-search/badge.png?branch=master)](https://coveralls.io/r/samsm/mundane-search?branch=master) [![Dependency Status](https://gemnasium.com/samsm/mundane-search.png)](https://gemnasium.com/samsm/mundane-search)
 
 MundaneSearch aims to compartmentalize multi-step search.
 

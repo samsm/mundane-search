@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["samsm@samsm.com"]
   gem.description   = %q{Makes everyday search easy-ish.}
   gem.summary       = %q{Makes everyday search easy-ish.}
+  gem.license       = "MIT"
   gem.homepage      = "https://github.com/samsm/mundane-search"
 
   gem.files         = `git ls-files`.split($/)
